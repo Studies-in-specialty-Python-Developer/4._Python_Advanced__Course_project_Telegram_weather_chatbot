@@ -7,36 +7,62 @@ from const import *
 
 
 def main():
+    # Считываем из файла ID последнего обработанного сообщения
     last_update_id = 0
     if os.path.exists(LAST_UPDATE_ID_FILE):
         with open(LAST_UPDATE_ID_FILE) as file:
             data = file.readline()
             if data:
                 last_update_id = int(data)
+
+    # Получаем на сервере Telegram все сообщения, оставленные за последние 24 часа
     url = TGRAM_URL.format(method='getUpdates')
     response = requests.get(url)
     json_data = json.loads(response.text)
+
     pprint(json_data)
+
+    # Просматриваем сообщения в хронологическом порядке и обрабатываем те, у которых Update_ID больше,
+    # чем ID последнего обработанного сообщения
     message_data = dict()
     for item in json_data.get('result'):
         if last_update_id < item.get('update_id'):
+
+            # Получаем необходимые параметры сообщения
             chat_id = item.get('message').get('chat').get('id')
             text = item.get('message').get('text')
             last_update_id = item.get('update_id')
+
+            # Записываем в файл Update_ID текущего сообщения
             with open(LAST_UPDATE_ID_FILE, 'w') as file:
                 file.write(str(last_update_id))
 
             print(chat_id, text, last_update_id)
 
+            # Формируем ответ на сообщение
             message_data['chat_id'] = chat_id
-            if text == '/start':
-                message_data['text'] = 'Здравствуйте!\nВведите название города'
+            if COMMANDS.get(text):
+                message_data['text'] = COMMANDS[text]
+            else:
+                url = OWM_URL.format(city=text)
+                response = requests.get(url)
+                json_data = json.loads(response.text)
 
-            url = OWM_URL.format(city='Kharkiv')
-            response = requests.get(url)
+                pprint(json_data)
+
+                if json_data.get('cod') != 200:
+                    message_data['text'] = f'Ошибка: {json_data.get("message")}'
+                else:
+                    message_data['text'] = json_data
+
+            # Отвечаем на сообщение
+            url = TGRAM_URL.format(method='sendMessage')
+            response = requests.get(url, message_data)
             json_data = json.loads(response.text)
-            if json_data.get('cod') != 200:
-                message_data['message'] = f'Ошибка: {json_data.get("message")}'
+
+            pprint(json_data)
+
+    time.sleep(3)
 
     #
     #     def get_weather(city):
