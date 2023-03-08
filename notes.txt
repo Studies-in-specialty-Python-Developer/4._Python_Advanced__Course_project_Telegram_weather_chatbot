@@ -1,0 +1,71 @@
+----------   Шаблон Telegram сообщения
+
+{'ok': True,
+ 'result': [
+			{'message': {'chat': {'first_name': 'Ivan',
+                                  'id': 1111111111,
+                                  'type': 'private'},
+                         'date': 1678227742,
+                         'from': {'first_name': 'Ivan',
+                                  'id': 1111111111,
+                                  'is_bot': False,
+                                  'language_code': 'ru'},
+                         'message_id': 101,
+                         'text': 'Киев'},
+             'update_id': 912519882}
+            ]
+}
+
+
+----------   Шаблон ответа Telegram бота
+
+{'ok': True,
+ 'result': {'chat': {'first_name': 'Ivan', 'id': 1111111111, 'type': 'private'},
+            'date': 1678288190,
+            'from': {'first_name': 'OpenWeatherMap bot',
+                     'id': 1111111111,
+                     'is_bot': True,
+                     'username': 'owm_weather123_bot'},
+            'message_id': 119,
+            'text': 'Город: Kyiv, UA'}}
+
+
+----------   Шаблон ответа OpenWeatherMap
+
+{'base': 'stations',
+ 'clouds': {'all': 100},
+ 'cod': 200,
+ 'coord': {'lat': 50.4333, 'lon': 30.5167},
+ 'dt': 1678286401,
+ 'id': 703448,
+ 'main': {'feels_like': 9.29,
+          'humidity': 69,
+          'pressure': 1001,
+          'temp': 9.29,
+          'temp_max': 9.29,
+          'temp_min': 9.29},
+ 'name': 'Kyiv',
+ 'sys': {'country': 'UA',
+         'id': 2003742,
+         'sunrise': 1678249693,
+         'sunset': 1678290584,
+         'type': 2},
+ 'timezone': 7200,
+ 'visibility': 10000,
+ 'weather': [{'description': 'overcast clouds',
+              'icon': '04d',
+              'id': 804,
+              'main': 'Clouds'}],
+ 'wind': {'deg': 245, 'gust': 1.79, 'speed': 0.45}}
+
+
+----------   Шаблон ответа OpenWeatherMap, если город не найден
+
+{'cod': '404', 'message': 'city not found'}
+
+
+----------   Меню чата для настройки через @BotFather
+
+start - Запустить бот
+stop - Остановить бот
+turnoff - Отключить бот (нужны права администратора)
