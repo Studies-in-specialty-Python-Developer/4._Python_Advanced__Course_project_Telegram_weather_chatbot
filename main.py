@@ -1,12 +1,15 @@
+""" Модуль реализует функционал погодного Telegram бота """
+
 import json
 import time
 import os
 import requests
-# from pprint import pprint
 from const import ADMIN_ID, OWM_URL, TGRAM_URL, LAST_UPDATE_ID_FILE, COMMANDS
 
 
 def main():
+    """ Функция реализует функционал погодного Telegram бота """
+
     # Считываем из файла ID последнего обработанного сообщения
     last_update_id = 0
     if os.path.exists(LAST_UPDATE_ID_FILE):
@@ -62,7 +65,7 @@ def main():
 
                 # Отвечаем на сообщение
                 url = TGRAM_URL.format(method='sendMessage')
-                response = requests.get(url, response_data, timeout=None)
+                requests.get(url, response_data, timeout=None)
 
                 # Записываем в файл Update_ID текущего сообщения
                 with open(LAST_UPDATE_ID_FILE, 'w', encoding='utf-8') as file:
