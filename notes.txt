@@ -1,3 +1,7 @@
+----------   Проект на GitHub
+https://github.com/Studies-in-specialty-Python-Developer/3._Python_Essential__Course_project.git
+
+
 ----------   Шаблон Telegram сообщения
 
 {'ok': True,
