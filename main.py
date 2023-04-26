@@ -13,7 +13,7 @@ from const import ADMIN_ID, OWM_URL, TGRAM_URL, LAST_UPDATE_ID_FILE, COMMANDS
 
 async def get_messages() -> dict:
     """ Получает список сообщений с сервера Telegram за последние 24 часа
-        Returns:
+    Returns:
         dict - словарь с последними сообщениями в чат-боте"""
     async with ClientSession() as session:
         url = TGRAM_URL.format(method='getUpdates')
@@ -24,9 +24,9 @@ async def get_messages() -> dict:
 
 async def get_weather(city: str) -> Tuple[str, dict]:
     """ Получает текущую погоду для заданного города с сервера OpenWeatherMap.org с помощью API
-        Arguments:
+    Arguments:
         city: str - запрашиваемый город
-        Returns:
+    Returns:
         str - запрашиваемый город
         dict - погодные условия в запрашиваемом городе"""
     async with ClientSession() as session:
@@ -37,10 +37,10 @@ async def get_weather(city: str) -> Tuple[str, dict]:
 
 
 async def send_message(params: dict) -> str:
-    """ Убирает номер в тексте заданного пункта меню
-        Arguments:
+    """ Посылает пользователю сообщение в Telegram с ответом на запрос погоды в заданном городе
+    Arguments:
         params: dict - текст пункта меню с номером
-        Returns:
+    Returns:
         str - служебное сообщение чат-бота на ответ пользователю"""
     async with ClientSession() as session:
         url = TGRAM_URL.format(method='sendMessage')
