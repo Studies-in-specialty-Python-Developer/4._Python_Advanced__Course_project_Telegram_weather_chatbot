@@ -1,4 +1,4 @@
-# 3._Python_Essential__Course_project
+# 3._Python_Advanced__Course_project_Telegram_weather_chatbot
 
 ### Описание
 Модуль main.py реализует функционал Telegram чат-бота, сообщающего погоду в заданном городе.
